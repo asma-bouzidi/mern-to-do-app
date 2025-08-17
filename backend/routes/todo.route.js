@@ -3,6 +3,19 @@ import Todo from '../models/todo.model.js';
 
 const router = express.Router();
 
+//get todo by id
+router.get('/:id', async (req, res) => {
+    try {
+        const todo = await Todo.findById(req.params.id);
+        if (!todo) {
+            res.json({ message: 'Todo does not exist' });
+        }
+        res.status(200).json(todo);        
+    } catch (error) {
+        res.status(500).json({ message: error.message });   
+    }
+} )
+
 //get all todos
 router.get('/', async (req, res) => {
     try {
