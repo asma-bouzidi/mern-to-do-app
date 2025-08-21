@@ -8,13 +8,13 @@ router.get('/:id', async (req, res) => {
     try {
         const todo = await Todo.findById(req.params.id);
         if (!todo) {
-            res.json({ message: 'Todo does not exist' });
+            return res.status(404).json({ message: 'Todo not found' });
         }
-        res.status(200).json(todo);        
+        res.json(todo);
     } catch (error) {
-        res.status(500).json({ message: error.message });   
+        res.status(500).json({ message: error.message });
     }
-} )
+})
 
 //get all todos
 router.get('/', async (req, res) => {
